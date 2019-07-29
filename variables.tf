@@ -66,7 +66,7 @@ locals {
 
   default_identifier_uris = [format("http://%s", var.name)]
 
-  identifier_uris = var.native ? [] : coalescelist(local.default_identifier_uris, var.identifier_uris)
+  identifier_uris = var.native ? [] : coalescelist(var.identifier_uris, local.default_identifier_uris)
 
   api_permissions = [
     for p in var.api_permissions : merge({

@@ -43,3 +43,21 @@ resource "azuread_application" "main" {
     }
   }
 }
+
+resource "random_string" "password" {
+  count   = var.password == "" ? 1 : 0
+  length  = 32
+  special = true
+}
+
+resource "azuread_application_password" "main" {
+  count = var.password != null ? 1 : 0
+
+  application_id = azuread_application.main.id
+
+  value = var.password != "" ? var.password : random_string.password[0].result
+
+  end_date = var.end_date
+
+  end_date_relative = var.end_date == null ? format("%dh", var.years * 24 * 365) : null
+}

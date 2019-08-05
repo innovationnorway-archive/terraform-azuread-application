@@ -45,6 +45,24 @@ variable "group_membership_claims" {
   description = "Configures the groups claim issued in a user or OAuth 2.0 access token that the app expects."
 }
 
+variable "password" {
+  type        = string
+  default     = ""
+  description = "The application password (aka client secret)."
+}
+
+variable "end_date" {
+  type        = string
+  default     = null
+  description = "The RFC3339 date after which credentials expire."
+}
+
+variable "years" {
+  type        = number
+  default     = 1
+  description = "Number of years for which the credentials will be valid."
+}
+
 variable "api_permissions" {
   type        = any
   default     = []

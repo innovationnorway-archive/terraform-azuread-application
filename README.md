@@ -39,6 +39,9 @@ module "application" {
 | `native` | `bool` | Whether the application can be installed on a user's device or computer (aka public client). Default: `false`. |
 | `oauth2_allow_implicit_flow` | `bool` | Whether to allow implicit grant flow for OAuth2. Default: `false`. |
 | `group_membership_claims` | `string` | Configures the groups claim issued in a user or OAuth 2.0 access token that the app expects. The options are: `None`, `SecurityGroup` and `All`. Default: `SecurityGroup`. |
+| `password` | `string` | The application password (aka client secret). |
+| `end_date` | `string` | The RFC3339 date after which credentials expire. Either this or `years` should be specified. |
+| `years` | `number` | Number of years for which the credentials will be valid. Default: `1`. |
 | `api_permissions` | `list` | List of API permissions. |
 | `app_roles` | `list` | List of App roles. |
 

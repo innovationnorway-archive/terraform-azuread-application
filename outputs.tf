@@ -25,3 +25,9 @@ output "app_roles" {
     }
   }
 }
+
+output "password" {
+  value       = azuread_application_password.main[0].value
+  sensitive   = true
+  description = "The password for the application."
+}

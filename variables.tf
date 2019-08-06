@@ -160,6 +160,7 @@ locals {
     (
       (coalesce(local.duration.years, 0) * 24 * 365) +
       (coalesce(local.duration.months, 0) * 24 * 30) +
+      (coalesce(local.duration.weeks, 0) * 24 * 7) +
       (coalesce(local.duration.days, 0) * 24) +
       coalesce(local.duration.hours, 0)
     )

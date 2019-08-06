@@ -2,6 +2,8 @@
 
 Create Azure AD Application.
 
+> ⚠️ **Warning**: This module will happily expose application credentials. All arguments including the application password will be persisted into Terraform state, into any plan files, and in some cases in the console output while running `terraform plan` and `terraform apply`. Read more about [sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).
+
 ## Example Usage
 
 ```hcl

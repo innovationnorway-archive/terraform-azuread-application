@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/innovationnorway/terraform-azuread-application/compare/v1.1.1...v1.1.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* duration suffix for week (`W`) works now ([34dcd04](https://github.com/innovationnorway/terraform-azuread-application/commit/34dcd04))
+
 ## [1.1.1](https://github.com/innovationnorway/terraform-azuread-application/compare/v1.1.0...v1.1.1) (2019-08-06)
 
 # [1.1.0](https://github.com/innovationnorway/terraform-azuread-application/compare/v1.0.1...v1.1.0) (2019-08-06)

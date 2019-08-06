@@ -39,7 +39,7 @@ module "application" {
 | `native` | `bool` | Whether the application can be installed on a user's device or computer (aka public client). Default: `false`. |
 | `oauth2_allow_implicit_flow` | `bool` | Whether to allow implicit grant flow for OAuth2. Default: `false`. |
 | `group_membership_claims` | `string` | Configures the groups claim issued in a user or OAuth 2.0 access token that the app expects. The options are: `None`, `SecurityGroup` and `All`. Default: `SecurityGroup`. |
-| `password` | `string` | The application password (aka client secret). |
+| `password` | `string` | The application password (aka client secret). If empty, Terraform will generate a password. |
 | `end_date` | `string` | The date after which the password expire. This can either be relative duration or RFC3339 date. Default: `1Y`. |
 | `api_permissions` | `list` | List of API permissions. |
 | `app_roles` | `list` | List of App roles. |

@@ -55,9 +55,9 @@ resource "azuread_application_password" "main" {
 
   application_id = azuread_application.main.id
 
-  value = var.password != "" ? var.password : random_string.password[0].result
+  value = coalesce(var.password, random_string.password[0].result)
 
-  end_date = var.end_date
+  end_date = local.end_date
 
-  end_date_relative = var.end_date == null ? format("%dh", var.years * 24 * 365) : null
+  end_date_relative = local.end_date_relative
 }

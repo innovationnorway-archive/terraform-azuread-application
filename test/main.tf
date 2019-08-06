@@ -9,6 +9,8 @@ module "application" {
 
   group_membership_claims = "All"
 
+  end_date = "2020-01-01"
+
   api_permissions = [
     {
       name = "Microsoft Graph"

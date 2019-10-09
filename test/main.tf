@@ -48,9 +48,9 @@ module "test_assertions" {
       want = 1
     },
     {
-      name = "has role claim"
-      got  = data.azuread_application.test.app_roles.0.value
-      want = "test"
+      name = "has expected number of app roles"
+      got  = length(data.azuread_application.test.app_roles)
+      want = 1
     }
   ]
 }

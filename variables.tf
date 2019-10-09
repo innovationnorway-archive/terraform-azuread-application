@@ -126,55 +126,30 @@ locals {
     }, r)
   ]
 
-  date_pattern     = "/^(?:(\\d{4})-(\\d{2})-(\\d{2}))[Tt]?(?:(\\d{2}):(\\d{2})(?::(\\d{2}))?(?:\\.(\\d+))?)?([Zz]|[\\+|\\-]\\d{2}:\\d{2})?$/"
-  duration_pattern = "/^(?:(\\d?)Y)?(?:(\\d?)M)?(?:(\\d+)W)?(?:(\\d+)D)?(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?$/"
+  date = regexall("^(?:(\\d{4})-(\\d{2})-(\\d{2}))[Tt]?(?:(\\d{2}):(\\d{2})(?::(\\d{2}))?(?:\\.(\\d+))?)?([Zz]|[\\+|\\-]\\d{2}:\\d{2})?$", var.end_date)
 
-  is_date_relative = replace(var.end_date, "/^(?:(\\d+)[Y|M|W|D|h|m|s])+$/", "$1") != var.end_date ? true : false
+  duration = regexall("^(?:(\\d+)Y)?(?:(\\d+)M)?(?:(\\d+)W)?(?:(\\d+)D)?(?:(\\d+)h)?(?:(\\d+)m)?(?:(\\d+)s)?$", var.end_date)
 
-  date = {
-    year  = replace(var.end_date, local.date_pattern, "$1")
-    month = replace(var.end_date, local.date_pattern, "$2")
-    day   = replace(var.end_date, local.date_pattern, "$3")
-  }
-
-  time = {
-    hour     = replace(var.end_date, local.date_pattern, "$4")
-    minute   = replace(var.end_date, local.date_pattern, "$5")
-    second   = replace(var.end_date, local.date_pattern, "$6")
-    fraction = replace(var.end_date, local.date_pattern, "$7")
-    offset   = replace(var.end_date, local.date_pattern, "$8")
-  }
-
-  duration = {
-    years   = replace(var.end_date, local.duration_pattern, "$1")
-    months  = replace(var.end_date, local.duration_pattern, "$2")
-    weeks   = replace(var.end_date, local.duration_pattern, "$3")
-    days    = replace(var.end_date, local.duration_pattern, "$4")
-    hours   = replace(var.end_date, local.duration_pattern, "$5")
-    minutes = replace(var.end_date, local.duration_pattern, "$6")
-    seconds = replace(var.end_date, local.duration_pattern, "$7")
-  }
-
-  end_date_relative = local.is_date_relative ? format(
+  end_date_relative = length(local.duration) > 0 ? format(
     "%dh",
     (
-      (coalesce(local.duration.years, 0) * 24 * 365) +
-      (coalesce(local.duration.months, 0) * 24 * 30) +
-      (coalesce(local.duration.weeks, 0) * 24 * 7) +
-      (coalesce(local.duration.days, 0) * 24) +
-      coalesce(local.duration.hours, 0)
+      (coalesce(local.duration[0][0], 0) * 24 * 365) +
+      (coalesce(local.duration[0][1], 0) * 24 * 30) +
+      (coalesce(local.duration[0][2], 0) * 24 * 7) +
+      (coalesce(local.duration[0][3], 0) * 24) +
+      coalesce(local.duration[0][4], 0)
     )
   ) : null
 
-  end_date = local.is_date_relative ? null : format(
+  end_date = length(local.date) > 0 ? format(
     "%02d-%02d-%02dT%02d:%02d:%02d.%02d%s",
-    local.date.year,
-    local.date.month,
-    local.date.day,
-    coalesce(local.time.hour, "23"),
-    coalesce(local.time.minute, "59"),
-    coalesce(local.time.second, "00"),
-    coalesce(local.time.fraction, "00"),
-    coalesce(local.time.offset, "Z")
-  )
+    local.date[0][0],
+    local.date[0][1],
+    local.date[0][2],
+    coalesce(local.date[0][3], "23"),
+    coalesce(local.date[0][4], "59"),
+    coalesce(local.date[0][5], "00"),
+    coalesce(local.date[0][6], "00"),
+    coalesce(local.date[0][7], "Z")
+  ) : null
 }

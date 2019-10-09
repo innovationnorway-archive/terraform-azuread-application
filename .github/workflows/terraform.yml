@@ -1,0 +1,13 @@
+name: terraform
+on: [push]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: innovationnorway/setup-terraform@v1
+      with:
+        version: '0.12.10'
+    - uses: innovationnorway/terraform-validate@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
